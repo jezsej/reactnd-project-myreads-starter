@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import BookShelf from './BookShelf'
+import BookShelves from './BookShelves'
+//import * as BooksAPI from './BooksAPI'
 
 class ListBooksContent extends Component {
+
+    
+
     render() {
+        
         return (
             <div className="list-books-content">
-                <BookShelf/>
+                <BookShelves books={this.props.books} onUpdate={this.props.onUpdate}/>
             </div>
         )
     }
