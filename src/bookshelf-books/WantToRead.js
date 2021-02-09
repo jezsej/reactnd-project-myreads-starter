@@ -1,20 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import Book from '../Book'
 
-class WantToRead extends Component {
-    render() {
-        return (
-            <div className="bookshelf-books">
-                <ol className="books-grid">
-                    {
-                        this.props.wantToRead.map(book => (
-                            <li key={book.id}><Book book={book} /></li>
-                        ))
-                    }
-                </ol>
-            </div>
-        )
-    }
+function WantToRead ({books, onUpdate}){
+    return (
+        <div className="bookshelf-books">
+            <ol className="books-grid">
+                {
+                    books.map(book => (
+                        <li key={book.id}><Book book={book} onUpdate={onUpdate} /></li>
+                    ))
+                }
+            </ol>
+        </div>
+    )
+
 }
+
 
 export default WantToRead

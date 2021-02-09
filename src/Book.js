@@ -8,14 +8,12 @@ class Book extends Component {
     
 
     update = shelf => {
-        //console.log(this.props.onUpdateShelf)
-        BooksAPI.update(this.props.book, shelf).then(book=>{
-            console.log('book',book)
+        BooksAPI.update(this.props.book, shelf).then(()=>{
             this.setState((currentState) => ({
                 shelf: currentState.shelf.trim()
             }))
+            this.props.onUpdate()
         })
-        //this.props.onUpdateShelf()
         
     }
 
@@ -24,8 +22,7 @@ class Book extends Component {
     }
 
     render() {
-        console.log(this.props.book.shelf, this.props.book)
-        //const {book, updateShelf} = this.props
+        
         const { shelf, title, authors, imageLinks } = this.props.book
 
         return (
@@ -43,7 +40,8 @@ class Book extends Component {
                     </div>
                 </div>
                 <div className="book-title">{title}</div>
-                <div className="book-authors">{authors.join(", ")}</div>
+                {authors !==undefined && (<div className="book-authors">{authors.join(", ")}</div>)}
+                
             </div>
         )
     }
