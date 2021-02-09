@@ -17,10 +17,6 @@ class Book extends Component {
         
     }
 
-    componentDidMount() {
-        this.update(this.props.book.shelf)
-    }
-
     render() {
         
         const { shelf, title, authors, imageLinks } = this.props.book

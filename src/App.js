@@ -35,7 +35,7 @@ class BooksApp extends React.Component {
           <ListBooks books={this.state.books} onUpdate = {this.updateShelf}/>
         )} />
         <Route path='/search' render={({ history })=>(
-          <SearchBooks onUpdate = {this.updateShelf}/>
+          <SearchBooks allBooks={this.state.books} onUpdate = {this.updateShelf}/>
           //history.push('/')
         )}/>
       </div>
