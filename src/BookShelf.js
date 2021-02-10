@@ -1,7 +1,7 @@
 import React from "react";
-import Book from '../Book'
+import Book from './Book'
 
-function Read ({books, onUpdate}){
+function BookShelf ({books, onUpdate}){
     return (
         <div className="bookshelf-books">
             <ol className="books-grid">
@@ -16,4 +16,4 @@ function Read ({books, onUpdate}){
 
 }
 
-export default Read
+export default BookShelf

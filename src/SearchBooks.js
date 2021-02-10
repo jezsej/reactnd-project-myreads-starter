@@ -28,17 +28,26 @@ class SearchBooks extends Component {
 
     }
 
-    clearQuery = () => {
-        this.updateQuery('')
-    }
 
     render() {
         const { query, books } = this.state
-        const { allBooks } = this.props
-        
-        
-        console.log('allBooks ', allBooks)
-        console.log('books ', books)
+        const { booksOnShelf, onUpdate } = this.props
+
+
+        let verifiedBooks = []
+
+        if (books.length > 0) {
+            verifiedBooks = books.map(book => {
+                booksOnShelf.forEach(bookOnShelf => {
+                    if (book.id === bookOnShelf.id) {
+                        book.shelf = bookOnShelf.shelf
+                    }
+                })
+                return book
+            })
+        }
+
+        console.log('verifiedBooks>>', verifiedBooks)
 
         return (
             <div className="search-books">
@@ -56,10 +65,12 @@ class SearchBooks extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {
-                            books.length > 0 && (
-                                books.filter(book => book.imageLinks !== undefined).map(book => (
-                                    <li key={book.id}><Book book={book} onUpdate={this.props.onUpdate} /></li>
+                            verifiedBooks.length > 0 ? (
+                                verifiedBooks.filter(book => book.imageLinks !== undefined).map(book => (
+                                    <li key={book.id}><Book book={book} onUpdate={onUpdate} /></li>
                                 ))
+                            ) : (
+                                query !== '' && books.length === 0 && <h3>No result</h3>
                             )
                         }
                     </ol>
