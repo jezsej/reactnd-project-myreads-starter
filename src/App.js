@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import SearchBooks from './SearchBooks'
+import Search from './Search'
 import ListBooks from './ListBooks'
 import { Route } from 'react-router-dom'
 
@@ -10,12 +10,9 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState(() => ({
-        books
-      }))
-    })
+  async componentDidMount() {
+    const books =  await BooksAPI.getAll();
+    this.setState({books})
   }
 
   updateShelf = () =>{
@@ -31,12 +28,14 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-      <Route exact path='/' render={() => (
-          <ListBooks books={this.state.books} onUpdate = {this.updateShelf}/>
-        )} />
-        <Route path='/search' render={({ history })=>(
-          <SearchBooks booksOnShelf={this.state.books} onUpdate = {this.updateShelf}/>
-          //history.push('/')
+        <Route exact path='/'>
+          <ListBooks books={this.state.books} onUpdate={this.updateShelf} />
+        </Route>
+        <Route path='/search' render={()=>(
+          <Search booksOnShelf={this.state.books} onUpdate = {()=>{
+            this.updateShelf()
+          }}/>
+          
         )}/>
       </div>
     )

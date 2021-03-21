@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
+import propTypes from 'prop-types';
 
-class SearchBooks extends Component {
+class Search extends Component {
     state = {
         query: '',
         books: []
@@ -15,12 +16,13 @@ class SearchBooks extends Component {
         }))
 
         if (query !== '') {
-            BooksAPI.search(query).then(books => {
+             BooksAPI.search(query).then(books => {
                 this.setState(() => ({
                     books
                 }))
             })
-        } else {
+        } 
+        else {
             this.setState(() => ({
                 books: []
             }))
@@ -34,10 +36,10 @@ class SearchBooks extends Component {
         const { booksOnShelf, onUpdate } = this.props
 
 
-        let verifiedBooks = []
+        let vBooks = []
 
         if (books.length > 0) {
-            verifiedBooks = books.map(book => {
+            vBooks = books.map(book => {
                 booksOnShelf.forEach(bookOnShelf => {
                     if (book.id === bookOnShelf.id) {
                         book.shelf = bookOnShelf.shelf
@@ -46,13 +48,11 @@ class SearchBooks extends Component {
                 return book
             })
         }
-
-        console.log('verifiedBooks>>', verifiedBooks)
-
+        
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <Link to='/'><button className="close-search">Close</button></Link>
+                    <Link to='/' className="close-search">Close</Link>
                     <div className="search-books-input-wrapper">
 
                         <input type="text"
@@ -65,8 +65,8 @@ class SearchBooks extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {
-                            verifiedBooks.length > 0 ? (
-                                verifiedBooks.filter(book => book.imageLinks !== undefined).map(book => (
+                            vBooks.length > 0 ? (
+                                vBooks.filter(book => book.imageLinks !== undefined).map(book => (
                                     <li key={book.id}><Book book={book} onUpdate={onUpdate} /></li>
                                 ))
                             ) : (
@@ -74,12 +74,15 @@ class SearchBooks extends Component {
                             )
                         }
                     </ol>
-
-
                 </div>
             </div>
         )
     }
 }
 
-export default SearchBooks
+Search.propTypes = {
+    booksOnShelf:propTypes.array,
+    onUpdate: propTypes.func
+}
+
+export default Search

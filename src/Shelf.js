@@ -1,7 +1,8 @@
 import React from "react";
 import Book from './Book'
+import propTypes from 'prop-types';
 
-function BookShelf ({books, onUpdate}){
+function Shelf ({books, onUpdate}){
     return (
         <div className="bookshelf-books">
             <ol className="books-grid">
@@ -15,5 +16,9 @@ function BookShelf ({books, onUpdate}){
     )
 
 }
+Shelf.propTypes ={
+    books:propTypes.array,
+    onUpdate:propTypes.func
+}
 
-export default BookShelf
+export default Shelf

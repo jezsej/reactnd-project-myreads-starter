@@ -1,5 +1,6 @@
 import React from "react";
 import * as BooksAPI from './BooksAPI'
+import propTypes from 'prop-types';
 
 function Book({book, onUpdate}){
 
@@ -29,6 +30,11 @@ function Book({book, onUpdate}){
             
         </div>
     )
+}
+
+Book.propTypes ={
+    book:propTypes.object,
+    onUpdate:propTypes.func
 }
 
 export default Book;
